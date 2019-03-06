@@ -39,7 +39,9 @@ const dictate = () => {
           
           utterThis = new SpeechSynthesisUtterance('Respuesta correcta');
           synth.speak(utterThis);
-          window.location.href = "mello.html";
+          setTimeout(()=>{
+            window.location.href = "mello.html";
+          }, 3000)
       };
     }
   }
