@@ -7,7 +7,7 @@ const text = document.querySelector('.text')
 let paragraph = document.createElement('p');
 let container = document.querySelector('.text-box');
 
-text.innerHTML = 'Cache cleared';
+text.innerHTML = 'Cache cleared 2';
 
 container.appendChild(paragraph);
 const sound = document.querySelector('.sound');
