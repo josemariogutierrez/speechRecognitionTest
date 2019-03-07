@@ -6,15 +6,24 @@
   <title>Speech Recognition Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="#">
+  <link href="https://fonts.googleapis.com/css?family=Spectral+SC:400,500,700" rel="stylesheet"> 
   <link rel="stylesheet" type="text/css" media="screen" href="styles.css">
 </head>
 <body>
-  <div class="text"></div>
-  <div class="container"> <!--page container -->
-    <div class="text-box" contenteditable="true"></div> <!--text box which will contain spoken text -->
-    <i class="fa fa-microphone"></i> <!-- microphone icon to be clicked before speaking -->
+  <div class="main-container">
+    <div class="bg-img"></div>
+    <div class="title">Speak Friend and Enter</div>
+    <div class="response"></div>
+    <div class="speak-button">
+      <svg id="mic-icon" viewBox="0 0 230.639 230.639">
+        <g>
+          <path d="M184.777 125.36a7.5 7.5 0 0 0-15 0c0 30.028-24.43 54.458-54.458 54.458s-54.458-24.43-54.458-54.458a7.5 7.5 0 0 0-15 0c0 35.765 27.174 65.294 61.958 69.047v21.232H89.35a7.5 7.5 0 0 0 0 15h51.939a7.5 7.5 0 0 0 0-15H122.82v-21.232c34.783-3.753 61.957-33.282 61.957-69.047z"/>
+          <path d="M115.32 171.112c23.408 0 42.451-19.043 42.451-42.451v-86.21C157.771 19.043 138.728 0 115.32 0S72.869 19.043 72.869 42.451v86.21c0 23.408 19.043 42.451 42.451 42.451zM87.869 42.451C87.869 27.314 100.183 15 115.32 15s27.451 12.314 27.451 27.451v86.21c0 15.137-12.314 27.451-27.451 27.451s-27.451-12.314-27.451-27.451v-86.21z"/>
+        </g>
+      </svg>
+    </div>
+    <audio class="sound" src="chime.mp3"></audio> <!-- sound to be played when we click icon => http://soundbible.com/1598-Electronic-Chime.html -->
   </div>
-  <audio class="sound" src="chime.mp3"></audio> <!-- sound to be played when we click icon => http://soundbible.com/1598-Electronic-Chime.html -->
   <script src="index.js?version=1"></script>
 </body>
 </html>

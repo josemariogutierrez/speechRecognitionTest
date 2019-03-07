@@ -2,14 +2,11 @@ window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecogn
 const synth = window.speechSynthesis;
 const recognition = new SpeechRecognition();
 
-const icon = document.querySelector('i.fa.fa-microphone')
-const text = document.querySelector('.text')
+const icon = document.querySelector('.speak-button')
 let paragraph = document.createElement('p');
-let container = document.querySelector('.text-box');
+let responseContainer = document.querySelector('.response');
 
-text.innerHTML = 'Cache cleared 3';
-
-container.appendChild(paragraph);
+responseContainer.appendChild(paragraph);
 const sound = document.querySelector('.sound');
 
 icon.addEventListener('click', () => {
@@ -34,16 +31,19 @@ const dictate = () => {
     const speechToText = event.results[0][0].transcript;
     
     paragraph.textContent = speechToText;
+    paragraph.classList.add('incorrect');
 
     if (event.results[0].isFinal) {
 
       if (speechToText.includes('melo') || speechToText.includes('mello') || speechToText.includes('mellow') || speechToText.includes('Melo')) {
-          console.log('Respuesta correcta');
-          text.innerHTML = 'Respuesta correcta';
-          utterThis = new SpeechSynthesisUtterance('Respuesta correcta');
+          console.log('Well Done Insuasti');
+          paragraph.textContent = 'Mello';
+          paragraph.classList.add('correct');
+          utterThis = new SpeechSynthesisUtterance('Well Done, Insuasti.');
           synth.speak(utterThis);
           setTimeout(()=>{
-            window.location.href = "mello.html";
+            // window.location.href = "mello.html";
+            console.log('Mello');
           }, 3000)
       };
     }
