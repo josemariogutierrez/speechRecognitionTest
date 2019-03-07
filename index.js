@@ -39,7 +39,7 @@ const dictate = () => {
 
       if (speechToText.includes('mellow') || speechToText.includes('mello') || speechToText.includes('melo')) {
           console.log('Respuesta correcta');
-          
+          text.innerHTML = 'Respuesta correcta';
           utterThis = new SpeechSynthesisUtterance('Respuesta correcta');
           synth.speak(utterThis);
           setTimeout(()=>{
