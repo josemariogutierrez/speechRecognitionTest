@@ -7,7 +7,7 @@ const text = document.querySelector('.text')
 let paragraph = document.createElement('p');
 let container = document.querySelector('.text-box');
 
-text.innerHTML = 'Cache cleared 2';
+text.innerHTML = 'Cache cleared 3';
 
 container.appendChild(paragraph);
 const sound = document.querySelector('.sound');
@@ -37,7 +37,7 @@ const dictate = () => {
 
     if (event.results[0].isFinal) {
 
-      if (speechToText.includes('mellow') || speechToText.includes('mello') || speechToText.includes('melo')) {
+      if (speechToText.includes('melo') || speechToText.includes('mello') || speechToText.includes('mellow') || speechToText.includes('Melo')) {
           console.log('Respuesta correcta');
           text.innerHTML = 'Respuesta correcta';
           utterThis = new SpeechSynthesisUtterance('Respuesta correcta');
