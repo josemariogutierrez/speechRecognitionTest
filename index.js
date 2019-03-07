@@ -3,8 +3,11 @@ const synth = window.speechSynthesis;
 const recognition = new SpeechRecognition();
 
 const icon = document.querySelector('i.fa.fa-microphone')
+const text = document.querySelector('.text')
 let paragraph = document.createElement('p');
 let container = document.querySelector('.text-box');
+
+text.innerHTML = 'Cache cleared';
 
 container.appendChild(paragraph);
 const sound = document.querySelector('.sound');
