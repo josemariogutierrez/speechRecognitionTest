@@ -34,7 +34,7 @@ const dictate = () => {
 
     if (event.results[0].isFinal) {
 
-      if (speechToText.includes('mellow') || speechToText.includes('mello') || speechToText.includes('melo')) {
+      if (speechToText.includes('hola') || speechToText.includes('pola') || speechToText.includes('cola')) {
           console.log('Respuesta correcta');
           
           utterThis = new SpeechSynthesisUtterance('Respuesta correcta');
