@@ -35,15 +35,21 @@ const dictate = () => {
 
     if (event.results[0].isFinal) {
 
-      if (speechToText.includes('melo') || speechToText.includes('mello') || speechToText.includes('mellow') || speechToText.includes('Melo')) {
-          console.log('Well Done Insuasti');
-          paragraph.textContent = 'Mello';
+      if (speechToText.includes('melo')
+      || speechToText.includes('mello')
+      || speechToText.includes('mellow')
+      || speechToText.includes('Melo')
+      || speechToText.includes('Melon')
+      || speechToText.includes('Mellon')
+      || speechToText.includes('Melon')) {
+          console.log('Well Done Insuasti', paragraph.textContent);
+          paragraph.textContent = 'Mellon';
           paragraph.classList.add('correct');
           utterThis = new SpeechSynthesisUtterance('Well Done, Insuasti.');
           synth.speak(utterThis);
           setTimeout(()=>{
             // window.location.href = "mello.html";
-            console.log('Mello');
+            console.log('Mellon');
           }, 3000)
       };
     }
