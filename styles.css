@@ -96,6 +96,7 @@ html, body{
 }
 
 .fade-out {
+  display: none;
   animation: fade-out 1s forwards;
 }
 
