@@ -1,31 +1,60 @@
-window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
-const synth = window.speechSynthesis;
-const recognition = new SpeechRecognition();
+// Opera 8.0+
+const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 
+// Firefox 1.0+
+const isFirefox = typeof InstallTrigger !== 'undefined';
+
+// Safari 3.0+ "[object HTMLElementConstructor]" 
+const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+// Internet Explorer 6-11
+const isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+// Edge 20+
+const isEdge = !isIE && !!window.StyleMedia;
+
+// Chrome 1 - 71
+const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+// DOM Selectors
+const title = document.querySelector('.title');
 const icon = document.querySelector('.speak-button')
-let title = document.querySelector('.title');
-let paragraph = document.querySelector('.response-word');
-let responseContainer = document.querySelector('.response');
-let responseFeedback = document.querySelector('.response-feedback');
-let buttonHelper = document.querySelector('.button-helper');
-let buttons = document.querySelector('.buttons');
-let leftButton = document.querySelector('.left-button');
-let rightButton = document.querySelector('.right-button');
+const paragraph = document.querySelector('.response-word');
+const responseContainer = document.querySelector('.response');
+const responseFeedback = document.querySelector('.response-feedback');
+const buttonHelper = document.querySelector('.button-helper');
+const buttons = document.querySelector('.buttons');
+const leftButton = document.querySelector('.left-button');
+const rightButton = document.querySelector('.right-button');
 
-const sound = document.querySelector('.sound');
+if(isOpera || isFirefox || isSafari || isIE || isEdge){
+  console.log('Oh no! Is not chrome!');
+  icon.classList.add('hide')
+  title.innerHTML = 'This adventure is for those who use chrome';
+} else if(isChrome){
+  console.log('Is Chrome!');
+  speechStart();
+}
 
-icon.addEventListener('click', () => {
-  icon.classList.toggle('animated');
-  dictate();
-});
+function speechStart(){
+  window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+  const synth = window.speechSynthesis;
+  const recognition = new SpeechRecognition();
 
-leftButton.addEventListener('click', () => {
-  endPuzzle(rightButton);
-});
+  icon.addEventListener('click', () => {
+    icon.classList.toggle('animated');
+    dictate(synth, recognition);
+  });
+  
+  leftButton.addEventListener('click', () => {
+    endPuzzle(rightButton);
+  });
+  
+  rightButton.addEventListener('click', () => {
+    endPuzzle(leftButton);
+  });
+}
 
-rightButton.addEventListener('click', () => {
-  endPuzzle(leftButton);
-});
 
 const endPuzzle = (button) => {
   title.classList.remove('fade-out')
@@ -42,7 +71,7 @@ const endPuzzle = (button) => {
   }, 1500)
 }
 
-const dictate = () => {
+const dictate = (synth, recognition) => {
   recognition.start();
 
   buttonHelper.textContent = 'Speak';
@@ -59,8 +88,6 @@ const dictate = () => {
     responseFeedback.classList.remove('correct');
     responseFeedback.classList.add('incorrect');
     responseFeedback.innerHTML = 'Incorrect. Try Again'
-
-    // console.log(event.results);
     
     if (event.results[0].isFinal) {
       
