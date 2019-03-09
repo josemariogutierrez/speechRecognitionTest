@@ -95,8 +95,11 @@ html, body{
   animation: animate-mic 0.8s infinite;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 .fade-out {
-  display: none;
   animation: fade-out 1s forwards;
 }
 
@@ -147,4 +150,12 @@ html, body{
 
 @media (max-width: 768px) {
 
+}
+
+.button-helper {
+  font-size: 10px;
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
 }

@@ -2,12 +2,12 @@ window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecogn
 const synth = window.speechSynthesis;
 const recognition = new SpeechRecognition();
 
-const firstPuzzle = document.querySelector('.first-puzzle')
 const icon = document.querySelector('.speak-button')
 let title = document.querySelector('.title');
 let paragraph = document.querySelector('.response-word');
 let responseContainer = document.querySelector('.response');
 let responseFeedback = document.querySelector('.response-feedback');
+let buttonHelper = document.querySelector('.button-helper');
 let buttons = document.querySelector('.buttons');
 let leftButton = document.querySelector('.left-button');
 let rightButton = document.querySelector('.right-button');
@@ -37,6 +37,7 @@ const endPuzzle = (button) => {
   setTimeout(()=>{
     title.innerHTML = 'Congrats! find the treasure inside the coffee table';
     title.classList.add('fade-in')
+    button.classList.add('hide')
     console.log('Congrats');
   }, 1500)
 }
@@ -44,6 +45,13 @@ const endPuzzle = (button) => {
 const dictate = () => {
   recognition.start();
 
+  buttonHelper.textContent = 'Speak';
+
+  recognition.onend = () => {
+    console.log('Ended');
+    buttonHelper.textContent = 'Press Button';
+    icon.classList.toggle('animated');
+  } 
   recognition.onresult = (event) => {
     const speechToText = event.results[0][0].transcript;
     
@@ -52,8 +60,9 @@ const dictate = () => {
     responseFeedback.classList.add('incorrect');
     responseFeedback.innerHTML = 'Incorrect. Try Again'
 
+    // console.log(event.results);
+    
     if (event.results[0].isFinal) {
-      icon.classList.toggle('animated');
       
       if (speechToText.includes('melo')
       || speechToText.includes('mello')
@@ -79,6 +88,7 @@ const dictate = () => {
             title.innerHTML = 'Choose left or right, whatever your heart says, make the opposite';
             title.classList.add('fade-in')
             buttons.classList.add('fade-in')
+            icon.classList.add('hide')
             console.log('Mellon');
           }, 3000)
       };
