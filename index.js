@@ -121,3 +121,12 @@ const dictate = (synth, recognition) => {
     }
   }
 }
+
+function getChromeVersion () {     
+  console.log(bowser);
+  responseFeedback.innerHTML = "You are using " + bowser.name +
+  " v" + bowser.version + 
+  " on " + bowser.osname
+}
+
+getChromeVersion();
