@@ -33,7 +33,6 @@ if(isOpera || isFirefox || isSafari || isIE || isEdge){
   title.innerHTML = 'This adventure is for those who use chrome';
 } else if(isChrome){
   console.log('Is Chrome!');
-  speechStart();
 }
 
 function speechStart(){
@@ -122,3 +121,5 @@ const dictate = (synth, recognition) => {
     }
   }
 }
+
+speechStart();
