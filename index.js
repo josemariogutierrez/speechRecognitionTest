@@ -1,23 +1,3 @@
-// Opera 8.0+
-const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-
-// Firefox 1.0+
-const isFirefox = typeof InstallTrigger !== 'undefined';
-
-// Safari 3.0+ "[object HTMLElementConstructor]" 
-const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) {
-  return p.toString() === "[object SafariRemoteNotification]";
-})(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-
-// Internet Explorer 6-11
-const isIE = /*@cc_on!@*/ false || !!document.documentMode;
-
-// Edge 20+
-const isEdge = !isIE && !!window.StyleMedia;
-
-// Chrome 1 - 71
-const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-
 // DOM Selectors
 const title = document.querySelector('.title');
 const icon = document.querySelector('.speak-button')
@@ -29,13 +9,21 @@ const buttons = document.querySelector('.buttons');
 const leftButton = document.querySelector('.left-button');
 const rightButton = document.querySelector('.right-button');
 
-if (isOpera || isFirefox || isSafari || isIE || isEdge) {
-  console.log('Oh no! Is not chrome!');
-  icon.classList.add('hide')
-  title.innerHTML = 'This adventure is for those who use chrome';
-} else if (isChrome) {
-  console.log('Is Chrome!');
+// Get the Browser type and version
+function getChromeVersion() {
+  const browserVersion = parseInt(bowser.version)
+
+  if(bowser.chrome && browserVersion > 71){
+    console.log(`Is Chrome! version: ${bowser.version}`);
+  } else {
+    console.log('Oh no! Is not chrome!');
+    icon.classList.add('hide')
+    title.innerHTML = 'This adventure is for those who use the latest version of chrome';
+    responseFeedback.innerHTML = `You are using ${bowser.name} version: ${bowser.version} on: ${bowser.osname}`
+  }
 }
+
+getChromeVersion();
 
 window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
 const synth = window.speechSynthesis;
@@ -121,12 +109,3 @@ const dictate = (synth, recognition) => {
     }
   }
 }
-
-function getChromeVersion () {     
-  console.log(bowser);
-  responseFeedback.innerHTML = "You are using " + bowser.name +
-  " v" + bowser.version + 
-  " on " + bowser.osname
-}
-
-getChromeVersion();
