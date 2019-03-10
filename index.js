@@ -8,12 +8,13 @@ const buttonHelper = document.querySelector('.button-helper');
 const buttons = document.querySelector('.buttons');
 const leftButton = document.querySelector('.left-button');
 const rightButton = document.querySelector('.right-button');
+let speechStartFlag = false;
 
 // Get the Browser type and version
 function getChromeVersion() {
   const browserVersion = parseInt(bowser.version)
 
-  if(bowser.chrome && browserVersion > 71){
+  if (bowser.chrome && browserVersion > 71) {
     console.log(`Is Chrome! version: ${bowser.version}`);
   } else {
     console.log('Oh no! Is not chrome!');
@@ -28,9 +29,9 @@ getChromeVersion();
 window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
 const synth = window.speechSynthesis;
 const recognition = new SpeechRecognition();
+// recognition.lang = 'en-US';
 
 icon.addEventListener('click', () => {
-  icon.classList.toggle('animated');
   dictate(synth, recognition);
 });
 
@@ -59,17 +60,27 @@ const endPuzzle = (button) => {
 }
 
 const dictate = (synth, recognition) => {
+  if (speechStartFlag) {
+    return
+  };
+
   recognition.start();
+  speechStartFlag = true;
 
   buttonHelper.textContent = 'Speak';
+  icon.classList.toggle('animated');
 
   recognition.onend = () => {
     console.log('Ended');
+    speechStartFlag = false;
     buttonHelper.textContent = 'Press Button';
-    icon.classList.toggle('animated');
+    icon.classList.remove('animated');
   }
   recognition.onresult = (event) => {
     const speechToText = event.results[0][0].transcript;
+    console.log('Antes', speechToText);
+    const sttn = speechToText.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    console.log('Después', sttn);
 
     paragraph.textContent = speechToText;
     responseFeedback.classList.remove('correct');
@@ -78,13 +89,14 @@ const dictate = (synth, recognition) => {
 
     if (event.results[0].isFinal) {
 
-      if (speechToText.includes('melo') ||
-        speechToText.includes('mello') ||
-        speechToText.includes('mellow') ||
-        speechToText.includes('Melo') ||
-        speechToText.includes('Melon') ||
-        speechToText.includes('Mellon') ||
-        speechToText.includes('Melon')) {
+      if (sttn.includes('melo') ||
+        sttn.includes('mello') ||
+        sttn.includes('mellon') ||
+        sttn.includes('melon') ||
+        sttn.includes('malin') ||
+        sttn.includes('medellin') ||
+        sttn.includes('melim') ||
+        sttn.includes('mellow')) {
         paragraph.textContent = 'Mellon';
         responseFeedback.classList.remove('incorrect');
         responseFeedback.classList.add('correct');
@@ -103,7 +115,6 @@ const dictate = (synth, recognition) => {
           title.classList.add('fade-in')
           buttons.classList.add('fade-in')
           icon.classList.add('hide')
-          console.log('Mellon');
         }, 3000)
       };
     }
